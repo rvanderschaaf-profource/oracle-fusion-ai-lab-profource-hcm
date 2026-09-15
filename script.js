@@ -42,19 +42,19 @@ const locationPrompt = `Analyze {{$context.$system.$inputMessage}} and identify 
 
 Generate a [LocationCode] based on the [locationName] field.
 
-In case of a delivered attachment, use the tool [MultiFileProcessor] to read and understand the attachment to identify the same fields.
+In case of a delivered attachment, use the tool [MultiFileProcessor] to read and understand the attachment to identify the same fields. Make sure that the [country] is always a 2-letter country code. For example NL for The Netherlands.
 
-Use [locationName] to check if the location already exists. You can use the function [RS001_get_location] from the tool [RS001_Locations] for this.
+Use [locationName] to check if the location already exists. You can use the function [YOUR_FUNCTION_CODE] from the tool [YOUR_TOOL_CODE] for this.
 
-If location already exists, then stop the agent and do not use any tools. Return with a deeplink to the location: Make a clickable deeplink to the location page. Link to use: https://fa-esdr-dev3-saasfademo1.ds-fa.oraclepdemos.com/fscmUI/redwood/locations?effectiveDate=4712-12-31&LocationId=[LocationId] -- This last LocationId must be filled based on the response of the [RS001_get_location] tool function.
+If location already exists, then stop the agent and do not use any tools. Return with a deeplink to the location: Make a clickable deeplink to the location page. Link to use: https://fa-esdr-dev3-saasfademo1.ds-fa.oraclepdemos.com/fscmUI/redwood/locations?effectiveDate=4712-12-31&LocationId=[LocationId] -- This last LocationId must be filled based on the response of the [YOUR_FUNCTION_CODE] tool function.
 
-If location does not exists, then use the function [RS001_create_location] from the tool [RS001_Locations] to create this new location. Return with a deeplink to the location: Make a clickable deeplink to the location page. Link to use: https://fa-esdr-dev3-saasfademo1.ds-fa.oraclepdemos.com/fscmUI/redwood/locations?effectiveDate=4712-12-31&LocationId=[LocationId] -- This last LocationId must be filled based on the response of the [RS001_create_location] tool function.
+If location does not exists, then use the function [YOUR_FUNCTION_CODE] from the tool [YOUR_TOOL_CODE] to create this new location. Return with a deeplink to the location: Make a clickable deeplink to the location page. Link to use: https://fa-esdr-dev3-saasfademo1.ds-fa.oraclepdemos.com/fscmUI/redwood/locations?effectiveDate=4712-12-31&LocationId=[LocationId] -- This last LocationId must be filled based on the response of the [YOUR_FUNCTION_CODE] tool function.
 
 The deeplink must be rendered as an HTML anchor element with target="_blank" so that the browser opens the location page in a new tab`;
 
 const copyText = {
   6: 'Business Object Name: [Your initials][number] Location Object\nFamily: Common\nModule: Other\nDescription: A business object that searches for location data and creates new locations\nResource Type: Monolith resource\nResource Path: /hcmRestApi/resources/11.13.18.05/locationsV2',
-  7: 'Function Name: [Your initials][number]_get_location\nDescription: A function to retrieve location data.\nOperation Type: Get\nUse Native Authentication: Yes\nResource Path: ?q=LocationName LIKE \'%{locationName}%\' or LIKE \'{locationName}%\' or LIKE \'%{locationName}\'\'\nHeader: REST-Framework-Version=1\n\n\nMake sure to fill in the rest of the required fields, you can use AI (generate or fetch sample data buttons) to fill these records.',
+  7: 'Function Name: [Your initials][number]_get_location\nDescription: A function to retrieve location data.\nOperation Type: Get\nUse Native Authentication: Yes\nResource Path: ?q=LocationName LIKE \'%{locationName}%\' or LIKE \'{locationName}%\' or LIKE \'%{locationName}\'\nHeader: REST-Framework-Version=1\n\n\nMake sure to fill in the rest of the required fields, you can use AI (generate or fetch sample data buttons) to fill these records.',
   8:'{\n"LocationCode" : "{locationCode}",\n"LocationName" : "{locationName}",\n"ActiveStatus" : "A",\n"SetCode" : "COMMON",\n"addresses" : [\n{\n"AddressUsageType" : "MAIN",\n"AddressLine1" : "{addressLine1}",\n"AddressLine2" : "{addressLine2}",\n"TownOrCity" : "{city}",\n"Country" : "{country}",\n"PostalCode" : "{postalCode}"\n}\n]\n}',
   9:'Tool Type: Business Object\nTool Name: [Your initials][number]_Locations\nFamily: Common\nModule: Other\nDescription: A tool to retrieve and create location data.\nRequire Human Approval: Off\nBusiness Object: [YOUR_BO_CODE]\n\nSelect both functions.',
   12:'Agent Name: [Your initials][number] Location Handler Agent\nFamily: Common\nModule: Other\nDescription: An agent that can query on location data and can create new locations.',
